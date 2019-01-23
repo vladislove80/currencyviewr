@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CurrencyViewr</string>
+
+    <!--PairListFragment-->
+    <string name="pair">Pair</string>
+    <string name="get_info">Get info</string>
+</resources>
