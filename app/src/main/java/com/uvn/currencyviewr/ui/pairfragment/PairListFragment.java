@@ -49,8 +49,20 @@ public class PairListFragment extends Fragment {
         PairViewModel.get(this).pairsLiveData.observe(this, pairItems -> {
             Log.d(TAG, "onChanged() called with: pairItems = [" + pairItems + "]");
             PiarListAdapter adapter = getAdapter();
-            if (adapter != null) adapter.addNewItems(pairItems);
+            if (adapter != null) {
+                adapter.addNewItems(pairItems);
+                showContent();
+            }
         });
+    }
+
+    private void showContent() {
+        View view = getView();
+        if (view != null) {
+            view.findViewById(R.id.pb).setVisibility(View.GONE);
+            view.findViewById(R.id.rvCurrencyPairs).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.btnGetInfo).setVisibility(View.VISIBLE);
+        }
     }
 
     private void showInfoFragment() {

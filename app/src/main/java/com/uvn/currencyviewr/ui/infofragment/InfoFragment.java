@@ -34,11 +34,6 @@ public class InfoFragment extends Fragment {
         return fragment;
     }
 
-    private void applyItems(List<PairRate> pairRates) {
-        InfoListAdapter adapter = getAdapter();
-        if (adapter != null) adapter.addNewItems(pairRates);
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,5 +77,19 @@ public class InfoFragment extends Fragment {
             return (InfoListAdapter) recycler.getAdapter();
         }
         return null;
+    }
+
+    private void applyItems(List<PairRate> pairRates) {
+        InfoListAdapter adapter = getAdapter();
+        if (adapter != null) adapter.addNewItems(pairRates);
+        showContent();
+    }
+
+    private void showContent() {
+        View view = getView();
+        if (view != null) {
+            view.findViewById(R.id.pb).setVisibility(View.GONE);
+            view.findViewById(R.id.rvRates).setVisibility(View.VISIBLE);
+        }
     }
 }
