@@ -18,6 +18,14 @@ import retrofit2.Response;
  */
 final class NetworkDataSource implements DataSource {
 
+    //query params
+    private static final String GET = "get";
+    private static final String KEY = "key";
+    private static final String KEY_VALUE = "dbc0a80dc45a23d1a68ecce161d99fe8";
+    private static final String GET_VALUE_CURRENCY = "currency_list";
+    private static final String GET_VALUE_RATES = "rates";
+    private static final String PAIRS = "pairs";
+
     private final ApiService apiService;
 
     NetworkDataSource(ApiService apiService) {
@@ -27,8 +35,8 @@ final class NetworkDataSource implements DataSource {
     @Override
     public void getPairCurrency(final Callback<List<PairCurrency>> callback) {
         Map<String, String> queryMap = new HashMap<>();
-        queryMap.put("get", "currency_list");
-        queryMap.put("key", "dbc0a80dc45a23d1a68ecce161d99fe8");
+        queryMap.put(GET, GET_VALUE_CURRENCY);
+        queryMap.put(KEY, KEY_VALUE);
         apiService.getCurrencyList(queryMap).enqueue(new retrofit2.Callback<CurrencyResponse<List<String>>>() {
             @Override
             public void onResponse(Call<CurrencyResponse<List<String>>> call, Response<CurrencyResponse<List<String>>> response) {
@@ -57,9 +65,9 @@ final class NetworkDataSource implements DataSource {
     public void getRatesForPairs(final List<PairCurrency> pairs, final Callback<List<PairRate>> callback) {
         String currencies = getPairs(pairs);
         Map<String, String> queryMap = new HashMap<>();
-        queryMap.put("get", "rates");
-        queryMap.put("key", "dbc0a80dc45a23d1a68ecce161d99fe8");
-        queryMap.put("pairs", currencies);
+        queryMap.put(GET, GET_VALUE_RATES);
+        queryMap.put(KEY, KEY_VALUE);
+        queryMap.put(PAIRS, currencies);
         apiService.getCurrencyRates(queryMap).enqueue(new retrofit2.Callback<CurrencyResponse<LinkedHashTreeMap<String, String>>>() {
             @Override
             public void onResponse(Call<CurrencyResponse<LinkedHashTreeMap<String, String>>> call, Response<CurrencyResponse<LinkedHashTreeMap<String, String>>> response) {

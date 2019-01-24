@@ -62,6 +62,19 @@ public class PairListFragment extends Fragment {
     }
 
     private void showInfoFragment() {
+        ArrayList<PairItem> list = getCheckedItems();
+        if (list.isEmpty())
+            Toast.makeText(getContext(), "Select at least one currency!", Toast.LENGTH_LONG).show();
+        else {
+            String tag = InfoFragment.class.getSimpleName();
+            if (getFragmentManager() != null) getFragmentManager().beginTransaction()
+                    .replace(R.id.mainContainer, InfoFragment.newInstance(list), tag).addToBackStack(tag)
+                    .commitAllowingStateLoss();
+        }
+    }
+
+    @NonNull
+    private ArrayList<PairItem> getCheckedItems() {
         ArrayList<PairItem> list = new ArrayList<>();
         PiarListAdapter adapter = getAdapter();
         if (adapter != null) {
@@ -71,14 +84,7 @@ public class PairListFragment extends Fragment {
                 }
             }
         }
-        if (list.isEmpty())
-            Toast.makeText(getContext(), "Select at least one currency!", Toast.LENGTH_LONG).show();
-        else {
-            String tag = InfoFragment.class.getSimpleName();
-            if (getFragmentManager() != null) getFragmentManager().beginTransaction()
-                    .replace(R.id.mainContainer, InfoFragment.newInstance(list), tag).addToBackStack(tag)
-                    .commitAllowingStateLoss();
-        }
+        return list;
     }
 
     @Nullable
