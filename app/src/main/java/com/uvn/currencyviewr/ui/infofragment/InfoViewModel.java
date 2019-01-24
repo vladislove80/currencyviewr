@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProviders;
  * Created by Vladyslav Ulianytskyi on 23.01.2019.
  */
 public class InfoViewModel extends ViewModel {
-    private static final String TAG = "InfoViewModel";
     private final DataSource dataSource;
     MutableLiveData<List<PairRate>> pairRateLiveData = new MutableLiveData<>();
 
@@ -39,13 +38,11 @@ public class InfoViewModel extends ViewModel {
         dataSource.getRatesForPairs(pairs, new DataSource.Callback<List<PairRate>>() {
             @Override
             public void onResult(List<PairRate> data) {
-                Log.d(TAG, "onResult() called with: data = [" + data + "]");
                 pairRateLiveData.postValue(data);
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getMessage());
                 pairRateLiveData.postValue(new ArrayList<>());
             }
         });

@@ -1,7 +1,5 @@
 package com.uvn.currencyviewr.ui.pairfragment;
 
-import android.util.Log;
-
 import com.uvn.currencyviewr.di.ViewModelFactory;
 import com.uvn.network.DataSource;
 import com.uvn.network.DataSourceProvider;
@@ -19,12 +17,10 @@ import androidx.lifecycle.ViewModelProviders;
  * Created by Vladyslav Ulianytskyi on 23.01.2019.
  */
 public class PairViewModel extends ViewModel {
-    private static final String TAG = "PairViewModel";
     private DataSource dataSource;
     MutableLiveData<List<PairItem>> pairsLiveData = new MutableLiveData<>();
 
     public PairViewModel(DataSourceProvider provider) {
-        Log.d(TAG, "PairViewModel() called with: provider = [" + provider + "]");
         dataSource = provider.getDataSource();
     }
 
@@ -48,7 +44,6 @@ public class PairViewModel extends ViewModel {
 
             @Override
             public void onFailure(Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
                 pairsLiveData.postValue(new ArrayList<>());
             }
         });

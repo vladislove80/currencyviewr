@@ -1,7 +1,6 @@
 package com.uvn.currencyviewr.ui.pairfragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by Vladyslav Ulianytskyi on 23.01.2019.
  */
 public class PairListFragment extends Fragment {
-    private static final String TAG = "PairListFragment";
 
     public static PairListFragment newInstance() {
         return new PairListFragment();
@@ -37,7 +35,6 @@ public class PairListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Pair");
-        Log.d(TAG, "onViewCreated() called PairViewModel.get(this).getPairs() ");
         view.findViewById(R.id.btnGetInfo).setOnClickListener(v -> showInfoFragment());
         setAdapterToRecycler(view);
         PairViewModel.get(this).getPairs();
@@ -47,7 +44,6 @@ public class PairListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         PairViewModel.get(this).pairsLiveData.observe(this, pairItems -> {
-            Log.d(TAG, "onChanged() called with: pairItems = [" + pairItems + "]");
             PiarListAdapter adapter = getAdapter();
             if (adapter != null) {
                 adapter.addNewItems(pairItems);

@@ -10,13 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
-            Log.d(TAG, "onCreate: ");
             addFragment(PairListFragment.newInstance());
         }
     }
