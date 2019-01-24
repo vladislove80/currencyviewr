@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.uvn.currencyviewr.R;
 import com.uvn.currencyviewr.ui.infofragment.InfoFragment;
@@ -62,11 +63,14 @@ public class PairListFragment extends Fragment {
                 }
             }
         }
-
-        String tag = InfoFragment.class.getSimpleName();
-        if (getFragmentManager() != null) getFragmentManager().beginTransaction()
-                .replace(R.id.mainContainer, InfoFragment.newInstance(list), tag).addToBackStack(tag)
-                .commitAllowingStateLoss();
+        if (list.isEmpty())
+            Toast.makeText(getContext(), "Select at least one currency!", Toast.LENGTH_LONG).show();
+        else {
+            String tag = InfoFragment.class.getSimpleName();
+            if (getFragmentManager() != null) getFragmentManager().beginTransaction()
+                    .replace(R.id.mainContainer, InfoFragment.newInstance(list), tag).addToBackStack(tag)
+                    .commitAllowingStateLoss();
+        }
     }
 
     private void setAdapterToRecycler(@NonNull View view) {
