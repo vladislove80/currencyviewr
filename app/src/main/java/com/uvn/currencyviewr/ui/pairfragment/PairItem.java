@@ -4,6 +4,8 @@ import com.uvn.network.PairCurrency;
 
 import java.io.Serializable;
 
+import androidx.annotation.NonNull;
+
 /**
  * Created by Vladyslav Ulianytskyi on 23.01.2019.
  */
@@ -13,11 +15,11 @@ public class PairItem implements Serializable {
 
     private final PairCurrency pair;
 
-    public PairItem(PairCurrency pair) {
+    PairItem(PairCurrency pair) {
         this.pair = pair;
     }
 
-    public String getName() {
+    String getName() {
         return pair.getName().substring(0, 3) + "/" + pair.getName().substring(3, 6);
     }
 
@@ -25,14 +27,15 @@ public class PairItem implements Serializable {
         return pair;
     }
 
-    public boolean isChecked() {
+    boolean isChecked() {
         return isChecked;
     }
 
-    public void setChecked(boolean checked) {
+    void setChecked(boolean checked) {
         isChecked = checked;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "PairItem{" +

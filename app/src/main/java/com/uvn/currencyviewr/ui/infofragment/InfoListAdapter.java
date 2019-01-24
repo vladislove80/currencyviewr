@@ -36,10 +36,6 @@ class InfoListAdapter extends RecyclerView.Adapter<PairRateHolder> {
         return list.size();
     }
 
-    List<PairRate> getList() {
-        return list;
-    }
-
     void addNewItems(List<PairRate> list) {
         this.list = list;
         notifyDataSetChanged();

@@ -1,9 +1,6 @@
 package com.uvn.network;
 
-import com.google.gson.internal.LinkedHashTreeMap;
-
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Vladyslav Ulianytskyi on 23.01.2019.

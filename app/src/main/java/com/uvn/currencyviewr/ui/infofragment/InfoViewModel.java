@@ -27,11 +27,11 @@ public class InfoViewModel extends ViewModel {
         this.dataSource = provider.getDataSource();
     }
 
-    public static InfoViewModel create() {
+    static InfoViewModel create() {
         return ViewModelFactory.getInstance().create(InfoViewModel.class);
     }
 
-    public void getRates(List<PairCurrency> pairs) {
+    void getRates(List<PairCurrency> pairs) {
         if (data != null && !data.isEmpty()) {
             pairRateLiveData.postValue(data);
             return;

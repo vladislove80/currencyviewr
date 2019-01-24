@@ -1,12 +1,12 @@
 package com.uvn.currencyviewr.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 
 import com.uvn.currencyviewr.R;
 import com.uvn.currencyviewr.ui.pairfragment.PairListFragment;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
 

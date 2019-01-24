@@ -10,7 +10,6 @@ import com.uvn.currencyviewr.R;
 import com.uvn.currencyviewr.ui.infofragment.InfoFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,9 +48,7 @@ public class PairListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "onViewCreated() called viewModel.getPairs() ");
-        view.findViewById(R.id.btnGetInfo).setOnClickListener(v -> {
-            showInfoFragment();
-        });
+        view.findViewById(R.id.btnGetInfo).setOnClickListener(v -> showInfoFragment());
         setAdapterToRecycler(view);
         viewModel.getPairs();
     }
@@ -67,7 +64,9 @@ public class PairListFragment extends Fragment {
         }
 
         String tag = InfoFragment.class.getSimpleName();
-        getFragmentManager().beginTransaction().replace(R.id.mainContainer, InfoFragment.newInstance(list), tag).addToBackStack(tag).commitAllowingStateLoss();
+        if (getFragmentManager() != null) getFragmentManager().beginTransaction()
+                .replace(R.id.mainContainer, InfoFragment.newInstance(list), tag).addToBackStack(tag)
+                .commitAllowingStateLoss();
     }
 
     private void setAdapterToRecycler(@NonNull View view) {

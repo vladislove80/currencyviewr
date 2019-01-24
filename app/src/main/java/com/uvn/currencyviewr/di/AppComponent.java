@@ -44,7 +44,7 @@ public class AppComponent {
         return app;
     }
 
-    public DataSourceProvider getProvider() {
+    DataSourceProvider getProvider() {
         return provider;
     }
 }

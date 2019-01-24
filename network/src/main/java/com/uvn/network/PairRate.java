@@ -7,7 +7,7 @@ public class PairRate {
     private final PairCurrency currency;
     private final String value;
 
-    public PairRate(PairCurrency currency, String value) {
+    PairRate(PairCurrency currency, String value) {
         this.currency = currency;
         this.value = value;
     }

@@ -52,6 +52,7 @@ public class InfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setAdapterToRecycler(view);
         List<PairItem> list = (ArrayList<PairItem>) getArguments().getSerializable(KEY);
+        if (list  == null) return;
         List<PairCurrency> currencies = new ArrayList<>();
         for (PairItem item : list) {
             currencies.add(item.getPair());

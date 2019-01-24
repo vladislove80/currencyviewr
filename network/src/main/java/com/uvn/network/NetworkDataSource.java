@@ -2,14 +2,12 @@ package com.uvn.network;
 
 import com.google.gson.internal.LinkedHashTreeMap;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 /**

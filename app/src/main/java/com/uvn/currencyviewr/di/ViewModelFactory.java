@@ -24,9 +24,10 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         if (INSTANCE == null) {
             INSTANCE = new ViewModelFactory();
         }
-        return(INSTANCE);
+        return (INSTANCE);
     }
 
+    @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(PairViewModel.class)) {

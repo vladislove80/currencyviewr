@@ -27,11 +27,11 @@ public class PairViewModel extends ViewModel {
         dataSource = provider.getDataSource();
     }
 
-    public static PairViewModel create() {
+    static PairViewModel create() {
         return ViewModelFactory.getInstance().create(PairViewModel.class);
     }
 
-    public void getPairs() {
+    void getPairs() {
         if (pairsList != null && !pairsList.isEmpty()) {
             pairsLiveData.postValue(pairsList);
             return;
@@ -50,7 +50,7 @@ public class PairViewModel extends ViewModel {
             @Override
             public void onFailure(Throwable t) {
                 Log.d(TAG, "onFailure: " + t.getMessage());
-                pairsLiveData.postValue(new ArrayList<PairItem>());
+                pairsLiveData.postValue(new ArrayList<>());
             }
         });
     }

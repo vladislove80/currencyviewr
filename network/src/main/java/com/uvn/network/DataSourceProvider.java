@@ -10,7 +10,7 @@ public class DataSourceProvider {
         this.baseUrl = baseUrl;
     }
 
-    public DataSource getDataSource(){
+    public DataSource getDataSource() {
         return new NetworkDataSource(createService());
     }
 
