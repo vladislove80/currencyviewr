@@ -35,7 +35,9 @@ public class PairListFragment extends Fragment {
         viewModel = PairViewModel.create();
         viewModel.pairsLiveData.observe(this, pairItems -> {
             Log.d(TAG, "onChanged() called with: pairItems = [" + pairItems + "]");
-            adapter.addNewItems(pairItems);
+            if (pairItems.isEmpty())
+                Toast.makeText(getContext(), "Select at least one currency!", Toast.LENGTH_LONG).show();
+            else adapter.addNewItems(pairItems);
         });
     }
 
