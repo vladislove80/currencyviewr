@@ -19,14 +19,13 @@ class PairHolder extends RecyclerView.ViewHolder {
 
     PairHolder(@NonNull View itemView) {
         super(itemView);
-
         currencyPair = itemView.findViewById(R.id.pairCur);
         cSwitch = itemView.findViewById(R.id.switchPair);
     }
 
     void bindItem(final PairItem item) {
         currencyPair.setText(item.getName());
-        cSwitch.setChecked(item.isChecked());
         cSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> item.setChecked(isChecked));
+        cSwitch.setChecked(item.isChecked());
     }
 }
