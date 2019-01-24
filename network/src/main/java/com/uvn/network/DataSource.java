@@ -1,5 +1,8 @@
 package com.uvn.network;
 
+import com.uvn.network.model.PairCurrency;
+import com.uvn.network.model.PairRate;
+
 import java.util.List;
 
 /**

@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.uvn.currencyviewr.R;
-import com.uvn.network.PairRate;
+import com.uvn.network.model.PairRate;
 
 import java.util.ArrayList;
 import java.util.List;

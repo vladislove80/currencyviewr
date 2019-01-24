@@ -1,4 +1,4 @@
-package com.uvn.network;
+package com.uvn.network.model;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class PairCurrency implements Serializable {
     private String name;
 
-    PairCurrency(String name) {
+    public PairCurrency(String name) {
         this.name = name;
     }
 

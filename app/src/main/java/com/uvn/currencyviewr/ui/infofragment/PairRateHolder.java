@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.uvn.currencyviewr.R;
-import com.uvn.network.PairRate;
+import com.uvn.network.model.PairRate;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

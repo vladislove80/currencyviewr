@@ -1,6 +1,7 @@
 package com.uvn.network;
 
 import com.google.gson.internal.LinkedHashTreeMap;
+import com.uvn.network.model.CurrencyResponse;
 
 import java.util.List;
 import java.util.Map;

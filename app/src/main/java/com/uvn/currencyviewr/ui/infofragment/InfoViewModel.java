@@ -5,8 +5,8 @@ import android.util.Log;
 import com.uvn.currencyviewr.di.ViewModelFactory;
 import com.uvn.network.DataSource;
 import com.uvn.network.DataSourceProvider;
-import com.uvn.network.PairCurrency;
-import com.uvn.network.PairRate;
+import com.uvn.network.model.PairCurrency;
+import com.uvn.network.model.PairRate;
 
 import java.util.ArrayList;
 import java.util.List;

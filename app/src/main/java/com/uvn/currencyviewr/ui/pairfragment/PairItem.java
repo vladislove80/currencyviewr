@@ -1,6 +1,6 @@
 package com.uvn.currencyviewr.ui.pairfragment;
 
-import com.uvn.network.PairCurrency;
+import com.uvn.network.model.PairCurrency;
 
 import java.io.Serializable;
 
