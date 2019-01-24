@@ -22,23 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class PairListFragment extends Fragment {
     private static final String TAG = "PairListFragment";
-    private PairViewModel viewModel;
-    private PiarListAdapter adapter;
 
     public static PairListFragment newInstance() {
         return new PairListFragment();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        viewModel = PairViewModel.create();
-        viewModel.pairsLiveData.observe(this, pairItems -> {
-            Log.d(TAG, "onChanged() called with: pairItems = [" + pairItems + "]");
-            if (pairItems.isEmpty())
-                Toast.makeText(getContext(), "Select at least one currency!", Toast.LENGTH_LONG).show();
-            else adapter.addNewItems(pairItems);
-        });
     }
 
     @Nullable
@@ -50,14 +36,26 @@ public class PairListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG, "onViewCreated() called viewModel.getPairs() ");
+        getActivity().setTitle("Pair");
+        Log.d(TAG, "onViewCreated() called PairViewModel.get(this).getPairs() ");
         view.findViewById(R.id.btnGetInfo).setOnClickListener(v -> showInfoFragment());
         setAdapterToRecycler(view);
-        viewModel.getPairs();
+        PairViewModel.get(this).getPairs();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        PairViewModel.get(this).pairsLiveData.observe(this, pairItems -> {
+            Log.d(TAG, "onChanged() called with: pairItems = [" + pairItems + "]");
+            PiarListAdapter adapter = getAdapter();
+            if (adapter != null) adapter.addNewItems(pairItems);
+        });
     }
 
     private void showInfoFragment() {
         ArrayList<PairItem> list = new ArrayList<>();
+        PiarListAdapter adapter = getAdapter();
         if (adapter != null) {
             for (PairItem item : adapter.getList()) {
                 if (item.isChecked()) {
@@ -75,10 +73,19 @@ public class PairListFragment extends Fragment {
         }
     }
 
+    @Nullable
+    private PiarListAdapter getAdapter() {
+        View view = getView();
+        if (view != null) {
+            final RecyclerView recycler = view.findViewById(R.id.rvCurrencyPairs);
+            return (PiarListAdapter) recycler.getAdapter();
+        }
+        return null;
+    }
+
     private void setAdapterToRecycler(@NonNull View view) {
-        adapter = new PiarListAdapter();
-        final RecyclerView recycler = view.findViewById(R.id.currencyPairList);
+        final RecyclerView recycler = view.findViewById(R.id.rvCurrencyPairs);
         recycler.setHasFixedSize(true);
-        recycler.setAdapter(adapter);
+        recycler.setAdapter(new PiarListAdapter());
     }
 }

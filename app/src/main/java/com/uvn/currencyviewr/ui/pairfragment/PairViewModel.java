@@ -10,8 +10,10 @@ import com.uvn.network.PairCurrency;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 
 /**
  * Created by Vladyslav Ulianytskyi on 23.01.2019.
@@ -20,27 +22,24 @@ public class PairViewModel extends ViewModel {
     private static final String TAG = "PairViewModel";
     private DataSource dataSource;
     MutableLiveData<List<PairItem>> pairsLiveData = new MutableLiveData<>();
-    private List<PairItem> pairsList;
 
     public PairViewModel(DataSourceProvider provider) {
         Log.d(TAG, "PairViewModel() called with: provider = [" + provider + "]");
         dataSource = provider.getDataSource();
     }
 
-    static PairViewModel create() {
-        return ViewModelFactory.getInstance().create(PairViewModel.class);
+    static PairViewModel get(Fragment fragment) {
+        return ViewModelProviders.of(fragment, ViewModelFactory.getInstance()).get(PairViewModel.class);
     }
 
     void getPairs() {
-        if (pairsList != null && !pairsList.isEmpty()) {
-            pairsLiveData.postValue(pairsList);
+        if (pairsLiveData.getValue() != null) {
             return;
         }
         dataSource.getPairCurrency(new DataSource.Callback<List<PairCurrency>>() {
             @Override
             public void onResult(List<PairCurrency> data) {
-                Log.d(TAG, "onResult() called with: data = [" + data + "]");
-                pairsList = new ArrayList<>();
+                List<PairItem> pairsList = new ArrayList<>();
                 for (PairCurrency pairCurrency : data) {
                     pairsList.add(new PairItem(pairCurrency));
                 }

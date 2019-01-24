@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.uvn.currencyviewr.R;
 import com.uvn.currencyviewr.ui.pairfragment.PairItem;
 import com.uvn.network.PairCurrency;
+import com.uvn.network.PairRate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -23,22 +25,18 @@ import androidx.recyclerview.widget.RecyclerView;
 public class InfoFragment extends Fragment {
 
     private static final String KEY = "list key";
-    private InfoViewModel viewModel;
-    private InfoListAdapter adapter;
 
-    public static InfoFragment newInstance(ArrayList<PairItem> list) {
+    public static InfoFragment newInstance(List<PairItem> list) {
         Bundle args = new Bundle();
-        args.putSerializable(KEY, list);
+        args.putSerializable(KEY, new ArrayList<>(list));
         InfoFragment fragment = new InfoFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        viewModel = InfoViewModel.create();
-        viewModel.pairRateLiveData.observe(this, pairRates -> adapter.addNewItems(pairRates));
+    private void applyItems(List<PairRate> pairRates) {
+        InfoListAdapter adapter = getAdapter();
+        if (adapter != null) adapter.addNewItems(pairRates);
     }
 
     @Nullable
@@ -50,20 +48,39 @@ public class InfoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            activity.setTitle("Info");
+        }
         setAdapterToRecycler(view);
         List<PairItem> list = (ArrayList<PairItem>) getArguments().getSerializable(KEY);
-        if (list  == null) return;
+        if (list == null) return;
         List<PairCurrency> currencies = new ArrayList<>();
         for (PairItem item : list) {
             currencies.add(item.getPair());
         }
-        viewModel.getRates(currencies);
+        InfoViewModel.get(this).getRates(currencies);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        InfoViewModel.get(this).pairRateLiveData.observe(this, this::applyItems);
     }
 
     private void setAdapterToRecycler(@NonNull View view) {
-        adapter = new InfoListAdapter();
         final RecyclerView recycler = view.findViewById(R.id.rvRates);
         recycler.setHasFixedSize(true);
-        recycler.setAdapter(adapter);
+        recycler.setAdapter(new InfoListAdapter());
+    }
+
+    @Nullable
+    private InfoListAdapter getAdapter() {
+        View view = getView();
+        if (view != null) {
+            final RecyclerView recycler = view.findViewById(R.id.rvRates);
+            return (InfoListAdapter) recycler.getAdapter();
+        }
+        return null;
     }
 }
