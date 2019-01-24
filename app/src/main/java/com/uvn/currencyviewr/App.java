@@ -3,7 +3,7 @@ package com.uvn.currencyviewr;
 import android.app.Application;
 
 import com.uvn.currencyviewr.di.AppComponent;
-import com.uvn.network.DataSourceProvider;
+import com.uvn.network.DataSourceProviderImpl;
 
 /**
  * Created by Vladyslav Ulianytskyi on 23.01.2019.
@@ -16,7 +16,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        appComponent = new AppComponent.Builder().application(this).provider(new DataSourceProvider(BASE_URL)).build();
+        appComponent = new AppComponent.Builder().application(this).provider(new DataSourceProviderImpl(BASE_URL)).build();
     }
 
     public static AppComponent getAppComponent() {
